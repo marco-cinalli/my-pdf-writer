@@ -29,7 +29,7 @@ if exist ".git" (
 )
 
 echo [2/3] Installazione e verifica dipendenze ^(npm install^)...
-call npm install
+call npm install --legacy-peer-deps
 if %errorlevel% neq 0 (
     echo.
     echo [ERRORE] Si e' verificato un problema durante "npm install".
