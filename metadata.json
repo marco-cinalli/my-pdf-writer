@@ -1,0 +1,6 @@
+{
+  "name": "FolioSign Studio",
+  "description": "Suite locale per firmare documenti PDF con firme in formato PDF e BMP con trasparenza, unire file PDF, ruotare ed estrarre pagine in totale privacy.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
