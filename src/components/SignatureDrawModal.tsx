@@ -17,9 +17,9 @@ export const SignatureDrawModal: React.FC<SignatureDrawModalProps> = ({
   const [isDrawing, setIsDrawing] = useState(false);
   const [strokeWidth, setStrokeWidth] = useState(3.5);
   const [stampText, setStampText] = useState(
-    `Firmato il ${new Date().toLocaleDateString('it-IT')}`
+    `Signed on ${new Date().toLocaleDateString('en-US')}`
   );
-  const [signatureName, setSignatureName] = useState('Firma Manuale');
+  const [signatureName, setSignatureName] = useState('Drawn Signature');
 
   useEffect(() => {
     if (!isOpen || !canvasRef.current) return;
@@ -77,7 +77,7 @@ export const SignatureDrawModal: React.FC<SignatureDrawModalProps> = ({
   const handleConfirm = () => {
     if (mode === 'draw' && canvasRef.current) {
       const dataUrl = canvasRef.current.toDataURL('image/png');
-      onSaveSignature(dataUrl, signatureName.trim() || 'Firma Manuale', 'DRAW');
+      onSaveSignature(dataUrl, signatureName.trim() || 'Drawn Signature', 'DRAW');
       onClose();
     } else if (mode === 'stamp') {
       const offscreen = document.createElement('canvas');
@@ -96,14 +96,14 @@ export const SignatureDrawModal: React.FC<SignatureDrawModalProps> = ({
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(
-        stampText.trim() || new Date().toLocaleDateString('it-IT'),
+        stampText.trim() || new Date().toLocaleDateString('en-US'),
         offscreen.width / 2,
         offscreen.height / 2
       );
 
       onSaveSignature(
         offscreen.toDataURL('image/png'),
-        stampText.trim() || 'Data e Timbro',
+        stampText.trim() || 'Date Stamp',
         'STAMP'
       );
       onClose();
@@ -116,7 +116,7 @@ export const SignatureDrawModal: React.FC<SignatureDrawModalProps> = ({
         {/* Header */}
         <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
           <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">
-            Crea Nuova Firma o Timbro Data
+            Create Freehand Signature or Date Stamp
           </h3>
           <button
             type="button"
@@ -140,7 +140,7 @@ export const SignatureDrawModal: React.FC<SignatureDrawModalProps> = ({
               }`}
             >
               <PenTool className="w-3.5 h-3.5" />
-              <span>Disegna a Mano Libera</span>
+              <span>Freehand Draw</span>
             </button>
             <button
               type="button"
@@ -152,7 +152,7 @@ export const SignatureDrawModal: React.FC<SignatureDrawModalProps> = ({
               }`}
             >
               <Type className="w-3.5 h-3.5" />
-              <span>Timbro Data / Testo</span>
+              <span>Date / Text Stamp</span>
             </button>
           </div>
 
@@ -160,7 +160,7 @@ export const SignatureDrawModal: React.FC<SignatureDrawModalProps> = ({
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-medium text-slate-700 dark:text-slate-300">
-                  Etichetta Firma:
+                  Signature Label:
                   <input
                     type="text"
                     value={signatureName}
@@ -170,7 +170,7 @@ export const SignatureDrawModal: React.FC<SignatureDrawModalProps> = ({
                 </label>
 
                 <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
-                  <span>Spessore tratto</span>
+                  <span>Stroke width</span>
                   <input
                     type="range"
                     min={1.5}
@@ -197,32 +197,32 @@ export const SignatureDrawModal: React.FC<SignatureDrawModalProps> = ({
               </div>
 
               <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                <span>Lo sfondo bianco verrà reso trasparente automaticamente.</span>
+                <span>White background is automatically converted to transparent.</span>
                 <button
                   type="button"
                   onClick={handleClear}
                   className="flex items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-medium cursor-pointer"
                 >
                   <Eraser className="w-3.5 h-3.5" />
-                  <span>Pulisci</span>
+                  <span>Clear</span>
                 </button>
               </div>
             </div>
           ) : (
             <div className="space-y-3">
               <label className="block text-xs font-medium text-slate-700 dark:text-slate-300">
-                Testo della Data o Annotazione
+                Date or Stamp Text
               </label>
               <input
                 type="text"
                 value={stampText}
                 onChange={(e) => setStampText(e.target.value)}
-                placeholder="Es. Milano, 07/11/2026 — Per Approvazione"
+                placeholder="e.g. Approved — Nov 8, 2026"
                 className="w-full px-3 py-2 text-sm bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:border-blue-600"
               />
               <div className="p-4 bg-checkerboard rounded-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center">
                 <div className="border-2 border-blue-800 px-5 py-2 text-blue-900 font-semibold text-base">
-                  {stampText || 'Data / Annotazione'}
+                  {stampText || 'Date / Stamp'}
                 </div>
               </div>
             </div>
@@ -236,7 +236,7 @@ export const SignatureDrawModal: React.FC<SignatureDrawModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
           >
-            Annulla
+            Cancel
           </button>
           <button
             type="button"
@@ -244,7 +244,7 @@ export const SignatureDrawModal: React.FC<SignatureDrawModalProps> = ({
             className="flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-white bg-blue-700 hover:bg-blue-600 rounded-lg transition-colors cursor-pointer"
           >
             <Check className="w-3.5 h-3.5" />
-            <span>Aggiungi alla Libreria Firme</span>
+            <span>Save to Signature Library</span>
           </button>
         </div>
       </div>

@@ -179,17 +179,17 @@ export async function extractPageTextItems(
       const fontHeight = Math.hypot(tx[2], tx[3]) || Math.hypot(tx[0], tx[1]) || 11;
       const itemWidth = Math.max(item.width || textStr.length * (fontHeight * 0.52), 8);
 
-      // In viewport coordinates, tx[4] is left X, tx[5] is baseline Y
       const left = tx[4];
       const top = tx[5] - fontHeight * 0.88;
       const height = fontHeight * 1.2;
 
       const rawFont = (item.fontName || '').toLowerCase();
-      const fontFamily: PdfFontFamily = rawFont.includes('times') || rawFont.includes('serif')
-        ? 'serif'
-        : rawFont.includes('courier') || rawFont.includes('mono')
-        ? 'mono'
-        : 'sans';
+      const fontFamily: PdfFontFamily =
+        rawFont.includes('times') || rawFont.includes('serif')
+          ? 'serif'
+          : rawFont.includes('courier') || rawFont.includes('mono')
+          ? 'mono'
+          : 'sans';
 
       rawBlocks.push({
         text: item.str,
@@ -202,7 +202,6 @@ export async function extractPageTextItems(
       });
     }
 
-    // Merge fragments that sit on the same horizontal line and are close to each other
     const merged: typeof rawBlocks = [];
     for (const block of rawBlocks) {
       const prev = merged[merged.length - 1];
@@ -238,7 +237,7 @@ export async function extractPageTextItems(
       fontFamily: b.fontFamily,
     }));
   } catch (err) {
-    console.error('Errore estrazione testo PDF:', err);
+    console.error('Error extracting PDF text:', err);
     return [];
   }
 }
@@ -312,7 +311,7 @@ function loadImageElement(src: string): Promise<HTMLImageElement> {
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error('Impossibile decodificare il file immagine della firma.'));
+    img.onerror = () => reject(new Error('Unable to decode signature image file.'));
     img.src = src;
   });
 }
@@ -451,7 +450,6 @@ function parseHexToRgb(hex: string) {
 }
 
 function sanitizePdfText(input: string): string {
-  // Replace typographic characters outside standard WinAnsi encoding
   return input
     .replace(/[\u2018\u2019]/g, "'")
     .replace(/[\u201C\u201D]/g, '"')
@@ -484,7 +482,6 @@ export async function compileFinalPdf(params: {
 
   const outPdf = await PDFDocument.create();
 
-  // Pre-embed standard fonts for text editing
   const fontMap: Record<string, PDFFont> = {
     'sans-normal': await outPdf.embedFont(StandardFonts.Helvetica),
     'sans-bold': await outPdf.embedFont(StandardFonts.HelveticaBold),
@@ -521,7 +518,7 @@ export async function compileFinalPdf(params: {
     const visW = isSwapped ? rawH : rawW;
     const visH = isSwapped ? rawW : rawH;
 
-    // 1. Render Text Annotations (Replaced existing PDF text & Newly added text boxes)
+    // 1. Render Text Annotations
     const textsForPage = textAnnotations.filter((t) => t.pageId === pageItem.id);
     for (const txt of textsForPage) {
       const boxW = txt.widthRatio * visW;
@@ -535,7 +532,6 @@ export async function compileFinalPdf(params: {
       const textColor = parseHexToRgb(txt.colorHex);
       const maskColor = parseHexToRgb(txt.maskColorHex || '#FFFFFF');
 
-      // Draw opaque mask rectangle if enabled (covers original PDF text cleanly)
       if (txt.maskBackground) {
         const pad = 1.5;
         if (totalRot === 0) {
@@ -576,7 +572,6 @@ export async function compileFinalPdf(params: {
         }
       }
 
-      // Draw each line of text if non-empty (allows blanking out text by deleting its content)
       const cleanedText = sanitizePdfText(txt.text);
       if (cleanedText.trim().length > 0) {
         const lines = cleanedText.split('\n');
@@ -697,7 +692,7 @@ export function parsePageRangeString(
 ): { indices: number[]; error: string | null } {
   const cleaned = input.trim();
   if (!cleaned) {
-    return { indices: [], error: 'Inserisci un intervallo di pagine (es. 1-2, 4).' };
+    return { indices: [], error: 'Enter a page range (e.g. 1-2, 4).' };
   }
 
   const parts = cleaned.split(',').map((p) => p.trim()).filter(Boolean);
@@ -718,7 +713,7 @@ export function parsePageRangeString(
       ) {
         return {
           indices: [],
-          error: `Intervallo "${part}" non valido (il documento ha ${maxPages} pagine).`,
+          error: `Invalid range "${part}" (document has ${maxPages} pages).`,
         };
       }
       for (let p = start; p <= end; p++) {
@@ -729,7 +724,7 @@ export function parsePageRangeString(
       if (Number.isNaN(pageNum) || pageNum < 1 || pageNum > maxPages) {
         return {
           indices: [],
-          error: `Pagina "${part}" fuori intervallo (1–${maxPages}).`,
+          error: `Page "${part}" is out of bounds (1–${maxPages}).`,
         };
       }
       indexSet.add(pageNum - 1);
@@ -743,7 +738,7 @@ export function parsePageRangeString(
 }
 
 /**
- * Generates a realistic 3-page sample PDF document locally so users can immediately test
+ * Generates a realistic 3-page sample PDF document in English so users can immediately test
  * signing, text editing, rotating, merging, and extracting page ranges.
  */
 export async function generateSampleContractPdf(): Promise<Uint8Array> {
@@ -752,16 +747,16 @@ export async function generateSampleContractPdf(): Promise<Uint8Array> {
   const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
   const pageTitles = [
-    'MODULO DI AUTORIZZAZIONE E INCARICO PERSONALE',
-    'CONDIZIONI GENERALI E TRATTAMENTO DATI PERSONALI',
-    'ALLEGATO TECNICO E RIEPILOGO SOTTOSCRIZIONE',
+    'PERSONAL AUTHORIZATION & SERVICE AGREEMENT',
+    'GENERAL TERMS & PRIVACY COMPLIANCE STATEMENT',
+    'TECHNICAL SCHEDULE & FINAL SIGNATURE ACKNOWLEDGMENT',
   ];
 
   for (let p = 0; p < 3; p++) {
     const page = pdfDoc.addPage([595.28, 841.89]);
     const { width, height } = page.getSize();
 
-    page.drawText('FOLIOSIGN STUDIO — DOCUMENTO DIMOSTRATIVO LOCALE', {
+    page.drawText('FOLIOSIGN STUDIO — LOCAL INTERACTIVE SAMPLE DOCUMENT', {
       x: 50,
       y: height - 48,
       size: 9,
@@ -769,8 +764,8 @@ export async function generateSampleContractPdf(): Promise<Uint8Array> {
       color: rgb(0.35, 0.42, 0.52),
     });
 
-    page.drawText(`Pagina ${p + 1} di 3`, {
-      x: width - 110,
+    page.drawText(`Page ${p + 1} of 3`, {
+      x: width - 105,
       y: height - 48,
       size: 9,
       font: fontRegular,
@@ -793,7 +788,7 @@ export async function generateSampleContractPdf(): Promise<Uint8Array> {
     });
 
     page.drawText(
-      `Protocollo N. FS-2026-0${p + 1}84   |   Data: ${new Date().toLocaleDateString('it-IT')}   |   Intestatario: Mario Rossi`,
+      `Reference No. FS-2026-0${p + 1}84   |   Date: ${new Date().toLocaleDateString('en-US')}   |   Signatory: Alex Morgan`,
       {
         x: 50,
         y: height - 118,
@@ -804,18 +799,18 @@ export async function generateSampleContractPdf(): Promise<Uint8Array> {
     );
 
     const paragraphs = [
-      '1. Oggetto del Documento: Il presente documento attesta la validita della sottoscrizione grafica',
-      "apposta localmente dall'utente tramite FolioSign Studio, garantendo che l'intero contenuto vettoriale",
-      'originale rimanga inalterato durante il salvataggio e l\'esportazione del file PDF.',
+      '1. Purpose of Agreement: This document demonstrates local graphical signature placement',
+      'using FolioSign Studio, ensuring that the original vector layout, typography, and page',
+      'dimensions remain completely unaltered when exporting the final signed PDF file.',
       '',
-      '2. Modifica del Testo e Archivio Locale: Passando allo strumento "Modifica Testo PDF" puoi cliccare',
-      'su qualsiasi riga di questo documento (ad esempio il nome dell\'intestatario, il numero di protocollo',
-      'o la citta di sottoscrizione) per modificarla direttamente, oppure aggiungere nuove caselle di testo.',
+      '2. PDF Text Editing & Local Vault: Switch to the "Edit PDF Text" tool to click on any line',
+      'of text in this document (such as the signatory name, reference number, or city) to edit',
+      'it inline, or insert new custom text boxes anywhere on the page.',
       '',
-      '3. Istruzioni di Prova Rapida:',
-      '   - Carica una firma in formato .BMP o .PDF dal pannello di destra (con bianco trasparente).',
-      '   - Clicca su "Testo PDF" per correggere i testi esistenti o inserire nuove annotazioni.',
-      '   - Tutte le modifiche vengono salvate automaticamente nella Home Page in memoria locale.',
+      '3. Quick Start Guide:',
+      '   - Upload a .BMP or .PDF signature file in the right panel (white background becomes transparent).',
+      '   - Click "Edit PDF Text" to modify existing text blocks or add new vector annotations.',
+      '   - All changes are automatically saved in your local browser vault on the Home Page.',
     ];
 
     let curY = height - 165;
@@ -843,7 +838,7 @@ export async function generateSampleContractPdf(): Promise<Uint8Array> {
       color: rgb(0.97, 0.98, 0.99),
     });
 
-    page.drawText('DICHIARAZIONE DI CONFORMITA E APPROVAZIONE SPECIFICA', {
+    page.drawText('DECLARATION OF COMPLIANCE & EXPRESS APPROVAL', {
       x: 66,
       y: height - 438,
       size: 10,
@@ -852,7 +847,7 @@ export async function generateSampleContractPdf(): Promise<Uint8Array> {
     });
 
     page.drawText(
-      'Ai sensi degli artt. 1341 e 1342 c.c., il sottoscritto dichiara di aver preso visione integrale del documento',
+      'The undersigned hereby confirms having reviewed the entire document and approves all terms',
       {
         x: 66,
         y: height - 460,
@@ -862,7 +857,7 @@ export async function generateSampleContractPdf(): Promise<Uint8Array> {
       }
     );
     page.drawText(
-      'e di approvarne specificamente tutte le clausole mediante apposizione della propria firma grafica trasparente.',
+      'and conditions by applying a transparent graphical signature below.',
       {
         x: 66,
         y: height - 478,
@@ -885,14 +880,14 @@ export async function generateSampleContractPdf(): Promise<Uint8Array> {
       borderWidth: 1,
       color: rgb(1, 1, 1),
     });
-    page.drawText('LUOGO E DATA DI SOTTOSCRIZIONE', {
+    page.drawText('LOCATION & DATE OF EXECUTION', {
       x: 64,
       y: boxY + boxH - 22,
       size: 8.5,
       font: fontBold,
       color: rgb(0.4, 0.46, 0.56),
     });
-    page.drawText(`Milano, ${new Date().toLocaleDateString('it-IT')}`, {
+    page.drawText(`London, ${new Date().toLocaleDateString('en-US')}`, {
       x: 64,
       y: boxY + 34,
       size: 11,
@@ -916,7 +911,7 @@ export async function generateSampleContractPdf(): Promise<Uint8Array> {
       borderWidth: 1.2,
       color: rgb(1, 1, 1),
     });
-    page.drawText('FIRMA DEL DICHIARANTE (POSIZIONA QUI)', {
+    page.drawText('AUTHORIZED SIGNATURE (PLACE HERE)', {
       x: rightBoxX + 14,
       y: boxY + boxH - 22,
       size: 8.5,
@@ -944,7 +939,7 @@ export async function generateSampleContractPdf(): Promise<Uint8Array> {
 /**
  * Generates a realistic calligraphic signature on a solid white background
  */
-export function createSampleSignatureDataUrl(labelName = 'Marco Valeri'): string {
+export function createSampleSignatureDataUrl(labelName = 'Alex Morgan'): string {
   const canvas = document.createElement('canvas');
   canvas.width = 520;
   canvas.height = 200;

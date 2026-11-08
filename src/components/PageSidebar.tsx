@@ -68,10 +68,10 @@ export const PageSidebar: React.FC<PageSidebarProps> = ({
       <div className="p-3.5 border-b border-slate-200 dark:border-slate-800 space-y-2.5">
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-slate-900 dark:text-slate-100 tracking-tight">
-            Pagine Documento
+            Document Pages
           </span>
           <span className="text-xs font-mono tabular-nums text-slate-500 dark:text-slate-400">
-            {pages.length} {pages.length === 1 ? 'pagina' : 'pagine'}
+            {pages.length} {pages.length === 1 ? 'page' : 'pages'}
           </span>
         </div>
 
@@ -80,10 +80,10 @@ export const PageSidebar: React.FC<PageSidebarProps> = ({
             type="button"
             onClick={() => fileInputRef.current?.click()}
             className="flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 rounded-md transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            title="Unisci un altro PDF accodando le sue pagine"
+            title="Merge another PDF by appending its pages"
           >
             <FilePlus2 className="w-3.5 h-3.5 shrink-0" />
-            <span>Unisci PDF</span>
+            <span>Merge PDF</span>
           </button>
 
           <button
@@ -91,10 +91,10 @@ export const PageSidebar: React.FC<PageSidebarProps> = ({
             onClick={() => onRotateAllPages(90)}
             disabled={pages.length === 0}
             className="flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-40 rounded-md transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            title="Ruota tutte le pagine di 90° in senso orario"
+            title="Rotate all pages 90° clockwise"
           >
             <RotateCw className="w-3.5 h-3.5 shrink-0" />
-            <span>Ruota Tutte</span>
+            <span>Rotate All</span>
           </button>
         </div>
 
@@ -142,7 +142,7 @@ export const PageSidebar: React.FC<PageSidebarProps> = ({
                         onToggleExtractIndex(idx);
                       }}
                       className="text-blue-700 dark:text-blue-400 hover:text-blue-800 cursor-pointer"
-                      title="Includi o escludi pagina dall'estrazione"
+                      title="Include or exclude page from extraction"
                     >
                       {isSelectedForExtract ? (
                         <CheckSquare className="w-4 h-4" />
@@ -158,7 +158,7 @@ export const PageSidebar: React.FC<PageSidebarProps> = ({
                         : 'text-slate-700 dark:text-slate-200'
                     }`}
                   >
-                    Pag. {idx + 1}
+                    Page {idx + 1}
                   </span>
                   {totalRotation !== 0 && (
                     <>
@@ -175,7 +175,7 @@ export const PageSidebar: React.FC<PageSidebarProps> = ({
                 <div className="text-[11px] text-slate-500 dark:text-slate-400 font-mono tabular-nums">
                   {sigCount > 0 ? (
                     <span className="text-emerald-700 dark:text-emerald-400 font-medium">
-                      {sigCount} {sigCount === 1 ? 'firma' : 'firme'}
+                      {sigCount} {sigCount === 1 ? 'sig' : 'sigs'}
                     </span>
                   ) : (
                     <span>
@@ -189,7 +189,7 @@ export const PageSidebar: React.FC<PageSidebarProps> = ({
               <div className="relative flex items-center justify-center bg-slate-100 dark:bg-slate-950 rounded border border-slate-200/80 dark:border-slate-800 overflow-hidden py-2 min-h-32">
                 <img
                   src={page.thumbnailDataUrl}
-                  alt={`Anteprima pagina ${idx + 1}`}
+                  alt={`Page ${idx + 1} preview`}
                   referrerPolicy="no-referrer"
                   className="max-h-36 w-auto object-contain shadow-xs bg-white"
                 />
@@ -212,7 +212,7 @@ export const PageSidebar: React.FC<PageSidebarProps> = ({
                     type="button"
                     onClick={() => onRotatePage(page.id, -90)}
                     className="p-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors cursor-pointer"
-                    title="Ruota pagina -90°"
+                    title="Rotate page -90°"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                   </button>
@@ -220,7 +220,7 @@ export const PageSidebar: React.FC<PageSidebarProps> = ({
                     type="button"
                     onClick={() => onRotatePage(page.id, 90)}
                     className="p-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors cursor-pointer"
-                    title="Ruota pagina +90°"
+                    title="Rotate page +90°"
                   >
                     <RotateCw className="w-3.5 h-3.5" />
                   </button>
@@ -229,7 +229,7 @@ export const PageSidebar: React.FC<PageSidebarProps> = ({
                     disabled={idx === 0}
                     onClick={() => onMovePage(idx, 'up')}
                     className="p-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 rounded transition-colors cursor-pointer"
-                    title="Sposta pagina in alto"
+                    title="Move page up"
                   >
                     <ArrowUp className="w-3.5 h-3.5" />
                   </button>
@@ -238,7 +238,7 @@ export const PageSidebar: React.FC<PageSidebarProps> = ({
                     disabled={idx === pages.length - 1}
                     onClick={() => onMovePage(idx, 'down')}
                     className="p-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 rounded transition-colors cursor-pointer"
-                    title="Sposta pagina in basso"
+                    title="Move page down"
                   >
                     <ArrowDown className="w-3.5 h-3.5" />
                   </button>
@@ -247,7 +247,7 @@ export const PageSidebar: React.FC<PageSidebarProps> = ({
                     disabled={pages.length <= 1}
                     onClick={() => onDeletePage(page.id)}
                     className="p-1 text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/50 disabled:opacity-30 rounded transition-colors cursor-pointer"
-                    title="Rimuovi pagina dal documento"
+                    title="Delete page from document"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>

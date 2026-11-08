@@ -120,7 +120,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
-            Firma
+            Sign
           </button>
           <button
             type="button"
@@ -131,7 +131,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
-            Testo PDF
+            PDF Text
           </button>
           <button
             type="button"
@@ -142,7 +142,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
-            Unisci
+            Merge
           </button>
           <button
             type="button"
@@ -153,7 +153,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
             }`}
           >
-            Estrai
+            Extract
           </button>
         </div>
       </div>
@@ -165,14 +165,14 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-semibold text-slate-900 dark:text-slate-100">
-                  1. Carica Firma (.PDF o .BMP)
+                  1. Upload Signature (.PDF or .BMP)
                 </h3>
                 <button
                   type="button"
                   onClick={onOpenDrawModal}
                   className="text-xs font-medium text-blue-700 dark:text-blue-400 hover:underline cursor-pointer"
                 >
-                  + Disegna / Data
+                  + Draw / Date
                 </button>
               </div>
 
@@ -199,11 +199,11 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
               >
                 <Upload className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto mb-1.5" />
                 <p className="text-xs font-medium text-slate-800 dark:text-slate-200">
-                  Trascina file firma <span className="font-mono">.bmp</span> o{' '}
-                  <span className="font-mono">.pdf</span>
+                  Drop signature <span className="font-mono">.bmp</span> or{' '}
+                  <span className="font-mono">.pdf</span> file
                 </p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                  Sfondo bianco convertito in trasparente
+                  White background automatically made transparent
                 </p>
                 <input
                   ref={sigInputRef}
@@ -221,24 +221,24 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
               </div>
 
               <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 pt-0.5">
-                <span>File di test:</span>
+                <span>Sample files:</span>
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={onDownloadSampleBmp}
                     className="hover:text-slate-900 dark:hover:text-slate-200 underline cursor-pointer"
-                    title="Scarica un file firma .BMP di esempio per testare il caricamento"
+                    title="Download a sample .BMP signature file to test upload"
                   >
-                    Scarica firma .BMP
+                    Download .BMP sig
                   </button>
                   <span aria-hidden="true">·</span>
                   <button
                     type="button"
                     onClick={onDownloadSamplePdfSig}
                     className="hover:text-slate-900 dark:hover:text-slate-200 underline cursor-pointer"
-                    title="Scarica un file firma .PDF di esempio per testare il caricamento"
+                    title="Download a sample .PDF signature file to test upload"
                   >
-                    Scarica firma .PDF
+                    Download .PDF sig
                   </button>
                 </div>
               </div>
@@ -248,9 +248,9 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
             <div className="space-y-2 border-t border-slate-200 dark:border-slate-800 pt-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-semibold text-slate-900 dark:text-slate-100">
-                  2. Firme Disponibili ({signatureAssets.length})
+                  2. Available Signatures ({signatureAssets.length})
                 </h3>
-                <span className="text-[11px] text-slate-400">Clicca per usare</span>
+                <span className="text-[11px] text-slate-400">Click to select</span>
               </div>
 
               <div className="space-y-2 max-h-48 overflow-y-auto pr-0.5">
@@ -287,7 +287,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                             }}
                             className="px-2 py-0.5 text-[11px] font-medium text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 rounded transition-colors cursor-pointer"
                           >
-                            Incolla
+                            Place
                           </button>
                           {signatureAssets.length > 1 && (
                             <button
@@ -297,7 +297,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                                 onDeleteSignatureAsset(asset.id);
                               }}
                               className="p-1 text-slate-400 hover:text-red-600 rounded transition-colors cursor-pointer"
-                              title="Rimuovi dalla libreria"
+                              title="Remove from library"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -325,12 +325,12 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                 <div className="flex items-center justify-between">
                   <h3 className="text-xs font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
                     <Sliders className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                    <span>3. Trasparenza e Scontorno Bianco</span>
+                    <span>3. White Transparency & Keying</span>
                   </h3>
                 </div>
 
                 <label className="flex items-center justify-between text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
-                  <span>Considera il bianco trasparente</span>
+                  <span>Treat white background as transparent</span>
                   <input
                     type="checkbox"
                     checked={activeAsset.transparentWhite}
@@ -347,7 +347,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                   <div className="space-y-1">
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-slate-600 dark:text-slate-400">
-                        Tolleranza del bianco
+                        White tolerance
                       </span>
                       <span className="font-mono tabular-nums font-medium text-slate-800 dark:text-slate-200">
                         {activeAsset.threshold}%
@@ -366,13 +366,13 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                       className="w-full accent-blue-600 cursor-pointer"
                     />
                     <p className="text-[11px] text-slate-400 dark:text-slate-500">
-                      Aumenta per rimuovere aloni grigi da scansioni BMP o PDF.
+                      Increase to clean up gray paper shadows from BMP or PDF scans.
                     </p>
                   </div>
                 )}
 
                 <label className="flex items-center justify-between text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
-                  <span>Ritaglia margini bianchi superflui</span>
+                  <span>Auto-crop empty white margins</span>
                   <input
                     type="checkbox"
                     checked={activeAsset.autoCrop}
@@ -387,14 +387,14 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
 
                 <div className="space-y-1.5">
                   <span className="block text-xs text-slate-600 dark:text-slate-400">
-                    Colore Inchiostro
+                    Ink Color
                   </span>
                   <div className="grid grid-cols-3 gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
                     {(
                       [
-                        { id: 'original', label: 'Originale' },
-                        { id: 'blue', label: 'Blu Penna' },
-                        { id: 'black', label: 'Nero' },
+                        { id: 'original', label: 'Original' },
+                        { id: 'blue', label: 'Pen Blue' },
+                        { id: 'black', label: 'Black' },
                       ] as const
                     ).map((opt) => (
                       <button
@@ -423,7 +423,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                   className="w-full flex items-center justify-center gap-2 py-2.5 px-4 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-600 rounded-lg shadow-xs transition-colors cursor-pointer"
                 >
                   <PenTool className="w-3.5 h-3.5" />
-                  <span>Incolla Firma sulla Pagina Attiva</span>
+                  <span>Place Signature on Active Page</span>
                 </button>
               </div>
             )}
@@ -435,14 +435,14 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
             <div className="space-y-1.5">
               <h3 className="text-xs font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
                 <Type className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-                <span>Editor del Testo PDF</span>
+                <span>PDF Text Editor</span>
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Clicca su qualsiasi{' '}
+                Click any{' '}
                 <span className="text-amber-700 dark:text-amber-400 font-medium">
-                  blocco tratteggiato
+                  dashed text block
                 </span>{' '}
-                sul foglio per modificare un testo già presente nel PDF, oppure inserisci una nuova casella di testo libero.
+                on the page to edit existing PDF text, or insert a new free-text box anywhere.
               </p>
             </div>
 
@@ -452,7 +452,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
               className="w-full flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-semibold text-white bg-amber-600 hover:bg-amber-500 rounded-lg shadow-xs transition-colors cursor-pointer"
             >
               <Plus className="w-4 h-4" />
-              <span>Aggiungi Nuova Casella di Testo</span>
+              <span>Add New Free-Text Box</span>
             </button>
 
             {selectedText ? (
@@ -460,8 +460,8 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">
                     {selectedText.mode === 'replace'
-                      ? 'Modifica Testo PDF Rilevato'
-                      : 'Casella di Testo Libero'}
+                      ? 'Edit Detected PDF Text'
+                      : 'Free-Text Box'}
                   </span>
                   <button
                     type="button"
@@ -470,7 +470,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                   >
                     <RotateCcw className="w-3 h-3" />
                     <span>
-                      {selectedText.mode === 'replace' ? 'Ripristina PDF' : 'Elimina'}
+                      {selectedText.mode === 'replace' ? 'Restore PDF' : 'Delete'}
                     </span>
                   </button>
                 </div>
@@ -478,7 +478,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                 {selectedText.originalText && (
                   <div className="p-2 rounded bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-[11px] text-slate-500 dark:text-slate-400">
                     <span className="font-medium text-slate-700 dark:text-slate-300">
-                      Originale:{' '}
+                      Original:{' '}
                     </span>
                     <span className="italic">"{selectedText.originalText}"</span>
                   </div>
@@ -486,7 +486,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
 
                 <div className="space-y-1">
                   <label className="block text-xs font-medium text-slate-700 dark:text-slate-300">
-                    Contenuto Testo (svuota per sbiancare)
+                    Text Content (leave empty to whiteout)
                   </label>
                   <textarea
                     value={selectedText.text}
@@ -494,7 +494,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                       onUpdateTextAnnotation(selectedText.id, { text: e.target.value })
                     }
                     rows={3}
-                    placeholder="Inserisci il testo..."
+                    placeholder="Enter text..."
                     className="w-full px-2.5 py-2 text-xs bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:border-amber-600"
                   />
                 </div>
@@ -502,7 +502,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                 <div className="grid grid-cols-2 gap-2.5">
                   <div className="space-y-1">
                     <label className="block text-xs text-slate-600 dark:text-slate-400">
-                      Carattere
+                      Font Family
                     </label>
                     <select
                       value={selectedText.fontFamily}
@@ -521,7 +521,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
 
                   <div className="space-y-1">
                     <label className="block text-xs text-slate-600 dark:text-slate-400">
-                      Dimensione ({Math.round(selectedText.fontSizePts)} pt)
+                      Size ({Math.round(selectedText.fontSizePts)} pt)
                     </label>
                     <input
                       type="number"
@@ -553,15 +553,15 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                       }
                       className="w-4 h-4 accent-amber-600 rounded cursor-pointer"
                     />
-                    <span>Stile Grassetto</span>
+                    <span>Bold Style</span>
                   </label>
 
                   <div className="flex items-center gap-1.5">
                     {(
                       [
-                        { hex: '#0F172A', label: 'Nero' },
-                        { hex: '#1D4ED8', label: 'Blu' },
-                        { hex: '#DC2626', label: 'Rosso' },
+                        { hex: '#0F172A', label: 'Black' },
+                        { hex: '#1D4ED8', label: 'Blue' },
+                        { hex: '#DC2626', label: 'Red' },
                       ] as const
                     ).map((c) => (
                       <button
@@ -576,14 +576,14 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                             ? 'ring-2 ring-offset-1 ring-amber-600 border-white'
                             : 'border-slate-300 dark:border-slate-600'
                         }`}
-                        title={`Colore ${c.label}`}
+                        title={`${c.label} color`}
                       />
                     ))}
                   </div>
                 </div>
 
                 <label className="flex items-center justify-between text-xs text-slate-700 dark:text-slate-300 cursor-pointer pt-1">
-                  <span>Copri il testo originale sottostante (Bianco)</span>
+                  <span>Mask underlying PDF text (Whiteout)</span>
                   <input
                     type="checkbox"
                     checked={selectedText.maskBackground}
@@ -598,14 +598,14 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
               </div>
             ) : (
               <div className="p-4 rounded-lg bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/60 text-xs text-amber-900 dark:text-amber-300">
-                Nessun blocco di testo selezionato. Fai clic su una frase del documento PDF al centro per modificarla subito.
+                No text block selected. Click any line of text on the PDF canvas in the center to edit it immediately.
               </div>
             )}
 
             {pageTextAnnotations.length > 0 && (
               <div className="space-y-2 border-t border-slate-200 dark:border-slate-800 pt-4">
                 <span className="block text-xs font-semibold text-slate-900 dark:text-slate-100">
-                  Testi Modificati nella Pagina ({pageTextAnnotations.length})
+                  Modified Text on This Page ({pageTextAnnotations.length})
                 </span>
                 <div className="space-y-1.5 max-h-44 overflow-y-auto">
                   {pageTextAnnotations.map((item) => (
@@ -619,7 +619,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                       }`}
                     >
                       <span className="truncate font-medium text-slate-800 dark:text-slate-200">
-                        {item.text || '(Testo cancellato / sbiancato)'}
+                        {item.text || '(Cleared / Whiteout)'}
                       </span>
                       <button
                         type="button"
@@ -628,7 +628,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                           onDeleteTextAnnotation(item.id);
                         }}
                         className="p-1 text-slate-400 hover:text-red-600 rounded cursor-pointer"
-                        title="Rimuovi modifica"
+                        title="Remove text edit"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -644,10 +644,10 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
           <div className="space-y-4">
             <div>
               <h3 className="text-xs font-semibold text-slate-900 dark:text-slate-100">
-                Unisci più Documenti PDF
+                Merge Multiple PDF Documents
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Aggiungi altri file PDF per accodare le loro pagine al documento corrente. Puoi riordinare o ruotare ogni singola pagina dalla barra laterale a sinistra.
+                Append additional PDF files to the current document. You can reorder, rotate, or delete individual pages from the left sidebar.
               </p>
             </div>
 
@@ -664,10 +664,10 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
             >
               <FilePlus2 className="w-6 h-6 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
               <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                Seleziona o trascina PDF da unire
+                Select or drop PDFs to merge
               </p>
               <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                I file vengono uniti localmente mantenendo il formato originale
+                Files are merged locally while preserving original vector quality
               </p>
               <input
                 ref={mergeInputRef}
@@ -687,10 +687,10 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
             <div className="space-y-2 border-t border-slate-200 dark:border-slate-800 pt-4">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-semibold text-slate-900 dark:text-slate-100">
-                  File PDF Sorgenti ({sources.size})
+                  Source PDF Files ({sources.size})
                 </span>
                 <span className="font-mono tabular-nums text-slate-500 dark:text-slate-400">
-                  Totale: {pages.length} pag.
+                  Total: {pages.length} pp.
                 </span>
               </div>
 
@@ -707,7 +707,7 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                           {src.name}
                         </p>
                         <p className="text-[11px] font-mono tabular-nums text-slate-500 dark:text-slate-400">
-                          {src.pageCount} {src.pageCount === 1 ? 'pagina' : 'pagine'} ·{' '}
+                          {src.pageCount} {src.pageCount === 1 ? 'page' : 'pages'} ·{' '}
                           {(src.sizeBytes / 1024).toFixed(1)} KB
                         </p>
                       </div>
@@ -723,23 +723,23 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
           <div className="space-y-4">
             <div>
               <h3 className="text-xs font-semibold text-slate-900 dark:text-slate-100">
-                Estrai Pagine in un Range
+                Extract Page Ranges
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Indica gli intervalli di pagine da estrarre (es.{' '}
-                <span className="font-mono">1-2, 4</span>) oppure seleziona le caselle sulle miniature a sinistra per generare un nuovo PDF contenente solo le pagine scelte.
+                Enter the page intervals to extract (e.g.{' '}
+                <span className="font-mono">1-2, 4</span>) or check the boxes on the left sidebar thumbnails to generate a new PDF containing only the selected pages.
               </p>
             </div>
 
             <div className="space-y-1.5">
               <label className="block text-xs font-medium text-slate-700 dark:text-slate-300">
-                Intervallo Pagine (1 – {pages.length})
+                Page Range (1 – {pages.length})
               </label>
               <input
                 type="text"
                 value={extractRangeInput}
                 onChange={(e) => onChangeExtractRangeInput(e.target.value)}
-                placeholder={`Es. 1-${Math.min(2, pages.length)}, ${pages.length}`}
+                placeholder={`e.g. 1-${Math.min(2, pages.length)}, ${pages.length}`}
                 className="w-full px-3 py-2 text-xs font-mono tabular-nums bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:border-blue-600"
               />
               {extractRangeError ? (
@@ -748,16 +748,16 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                 <p className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">
                   {selectedExtractIndices.length}{' '}
                   {selectedExtractIndices.length === 1
-                    ? 'pagina selezionata'
-                    : 'pagine selezionate'}{' '}
-                  per l'estrazione
+                    ? 'page selected'
+                    : 'pages selected'}{' '}
+                  for extraction
                 </p>
               )}
             </div>
 
             <div className="space-y-1.5">
               <span className="block text-xs text-slate-600 dark:text-slate-400">
-                Selezione Rapida
+                Quick Selection
               </span>
               <div className="grid grid-cols-2 gap-1.5">
                 <button
@@ -765,28 +765,28 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
                   onClick={() => onApplyRangePreset('all')}
                   className="px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-md transition-colors cursor-pointer"
                 >
-                  Tutte (1-{pages.length})
+                  All (1-{pages.length})
                 </button>
                 <button
                   type="button"
                   onClick={() => onApplyRangePreset('current')}
                   className="px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-md transition-colors cursor-pointer"
                 >
-                  Solo Pagina Attiva
+                  Active Page Only
                 </button>
                 <button
                   type="button"
                   onClick={() => onApplyRangePreset('odd')}
                   className="px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-md transition-colors cursor-pointer"
                 >
-                  Pagine Dispari
+                  Odd Pages
                 </button>
                 <button
                   type="button"
                   onClick={() => onApplyRangePreset('even')}
                   className="px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-md transition-colors cursor-pointer"
                 >
-                  Pagine Pari
+                  Even Pages
                 </button>
               </div>
             </div>
@@ -803,8 +803,8 @@ export const RightInspectorPanel: React.FC<RightInspectorPanelProps> = ({
             >
               <Scissors className="w-3.5 h-3.5" />
               <span>
-                Esporta {selectedExtractIndices.length}{' '}
-                {selectedExtractIndices.length === 1 ? 'Pagina' : 'Pagine'} in PDF
+                Export {selectedExtractIndices.length}{' '}
+                {selectedExtractIndices.length === 1 ? 'Page' : 'Pages'} to PDF
               </span>
             </button>
           </div>

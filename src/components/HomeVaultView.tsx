@@ -111,7 +111,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                   <HardDrive className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                  <span>Archivio Locale IndexedDB</span>
+                  <span>Local IndexedDB Vault</span>
                   <span aria-hidden="true">·</span>
                   <span>Zero Cloud</span>
                 </div>
@@ -128,7 +128,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                     }`}
                   >
                     <Sun className="w-3.5 h-3.5" />
-                    <span>Chiaro</span>
+                    <span>Light</span>
                   </button>
                   <button
                     type="button"
@@ -140,7 +140,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                     }`}
                   >
                     <Moon className="w-3.5 h-3.5" />
-                    <span>Scuro</span>
+                    <span>Dark</span>
                   </button>
                 </div>
               </div>
@@ -151,11 +151,11 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                   style={{ textWrap: 'balance' }}
                   className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50 font-display leading-[1.15]"
                 >
-                  Studio digitale privato per firmare, correggere e unire i tuoi PDF.
+                  Private local studio to sign, edit text, and merge your PDF documents.
                 </h1>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl">
-                  Applica firme da file <span className="font-mono text-slate-800 dark:text-slate-200">.BMP</span> e{' '}
-                  <span className="font-mono text-slate-800 dark:text-slate-200">.PDF</span> con scontorno automatico dello sfondo bianco, modifica i testi esistenti nel documento, ruota, unisci ed estrai intervalli di pagine. Tutto resta salvato esclusivamente nella memoria del tuo browser.
+                  Apply signatures from <span className="font-mono text-slate-800 dark:text-slate-200">.BMP</span> and{' '}
+                  <span className="font-mono text-slate-800 dark:text-slate-200">.PDF</span> files with automatic white-background transparency, edit existing text inside the PDF, rotate, merge, and extract page ranges. Everything stays stored exclusively in your browser memory.
                 </p>
               </div>
             </div>
@@ -169,19 +169,21 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                   className="flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-600 rounded-lg shadow-xs transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   <FileUp className="w-4 h-4" />
-                  <span>Carica Nuovo PDF</span>
+                  <span>Upload New PDF</span>
                 </button>
                 <button
                   type="button"
                   onClick={onCreateSampleProject}
                   className="px-3.5 py-2.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                 >
-                  + Genera Contratto di Prova
+                  + Generate Sample Contract
                 </button>
               </div>
 
               <div className="text-xs font-mono tabular-nums text-slate-500 dark:text-slate-400">
-                <span>{projects.length} PDF in memoria</span>
+                <span>
+                  {projects.length} {projects.length === 1 ? 'PDF in memory' : 'PDFs in memory'}
+                </span>
                 <span className="mx-1.5" aria-hidden="true">
                   ·
                 </span>
@@ -221,10 +223,10 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
             </div>
 
             <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 font-display">
-              Rilascia qui i tuoi documenti PDF da archiviare
+              Drop your PDF documents here to store them locally
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 max-w-md leading-relaxed">
-              I file vengono indicizzati localmente in <span className="font-mono">IndexedDB</span> e restano pronti all'uso anche se chiudi il browser. Puoi trascinare anche file firma <span className="font-mono">.BMP</span> o <span className="font-mono">.PDF</span>.
+              Files are indexed locally in <span className="font-mono">IndexedDB</span> and remain ready whenever you reopen the app until deleted. You can also drop <span className="font-mono">.BMP</span> or <span className="font-mono">.PDF</span> signature files.
             </p>
 
             <div
@@ -236,14 +238,14 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                 onClick={() => fileInputRef.current?.click()}
                 className="px-4 py-2 text-xs font-semibold text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
-                Sfoglia Documenti (.PDF)
+                Browse Documents (.PDF)
               </button>
               <button
                 type="button"
                 onClick={() => sigInputRef.current?.click()}
                 className="px-4 py-2 text-xs font-medium text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 border border-blue-200/70 dark:border-blue-800/70 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
-                Importa Firma (.BMP / .PDF)
+                Import Signature (.BMP / .PDF)
               </button>
             </div>
 
@@ -276,7 +278,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
           </div>
         </section>
 
-        {/* Section 2: 4-Column Functional Tool Strip & Vault Metrics (Full-Width Row below Hero) */}
+        {/* Section 2: 4-Column Functional Tool Strip & Vault Metrics */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <button
             type="button"
@@ -284,14 +286,14 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
             className="text-left bg-white dark:bg-slate-900 hover:border-blue-600 dark:hover:border-blue-500 border border-slate-200 dark:border-slate-800 rounded-xl p-4 transition-all group cursor-pointer"
           >
             <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
-              <span className="font-mono tabular-nums">01. Sottoscrizione</span>
+              <span className="font-mono tabular-nums">01. Signature Overlay</span>
               <PenTool className="w-4 h-4 text-blue-600 dark:text-blue-400 group-hover:translate-x-0.5 transition-transform" />
             </div>
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-              Firma PDF & Scontorno Bianco
+              Sign PDF & White Transparency
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-mono tabular-nums">
-              {signatureAssets.length} firme in libreria · {totalSignaturesPlaced} applicate
+              {signatureAssets.length} saved signatures · {totalSignaturesPlaced} placed
             </p>
           </button>
 
@@ -301,14 +303,14 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
             className="text-left bg-white dark:bg-slate-900 hover:border-amber-600 dark:hover:border-amber-500 border border-slate-200 dark:border-slate-800 rounded-xl p-4 transition-all group cursor-pointer"
           >
             <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
-              <span className="font-mono tabular-nums">02. Correzione Vettoriale</span>
+              <span className="font-mono tabular-nums">02. Vector Text Editing</span>
               <Type className="w-4 h-4 text-amber-600 dark:text-amber-400 group-hover:translate-x-0.5 transition-transform" />
             </div>
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-              Modifica Testo PDF Esistente
+              Edit Existing PDF Text
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-mono tabular-nums">
-              {totalTextsEdited} blocchi di testo editati · Rilevamento attivo
+              {totalTextsEdited} text blocks edited · Auto-detection active
             </p>
           </button>
 
@@ -318,14 +320,14 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
             className="text-left bg-white dark:bg-slate-900 hover:border-blue-600 dark:hover:border-blue-500 border border-slate-200 dark:border-slate-800 rounded-xl p-4 transition-all group cursor-pointer"
           >
             <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
-              <span className="font-mono tabular-nums">03. Assemblaggio</span>
+              <span className="font-mono tabular-nums">03. Page Assembly</span>
               <FilePlus2 className="w-4 h-4 text-blue-600 dark:text-blue-400 group-hover:translate-x-0.5 transition-transform" />
             </div>
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-              Unisci e Ruota Pagine PDF
+              Merge & Rotate PDF Pages
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-mono tabular-nums">
-              {totalPagesCount} pagine totali indicizzate · Rotazione ±90°
+              {totalPagesCount} total pages indexed · ±90° rotation
             </p>
           </button>
 
@@ -335,14 +337,14 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
             className="text-left bg-white dark:bg-slate-900 hover:border-blue-600 dark:hover:border-blue-500 border border-slate-200 dark:border-slate-800 rounded-xl p-4 transition-all group cursor-pointer"
           >
             <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
-              <span className="font-mono tabular-nums">04. Divisione Range</span>
+              <span className="font-mono tabular-nums">04. Range Splitter</span>
               <Scissors className="w-4 h-4 text-blue-600 dark:text-blue-400 group-hover:translate-x-0.5 transition-transform" />
             </div>
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-              Estrai Pagine per Intervallo
+              Extract Pages by Range
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-mono tabular-nums">
-              Esportazione selettiva (es. 1-3, 5) · Formato originale
+              Custom page ranges (e.g. 1-3, 5) · Lossless format
             </p>
           </button>
         </section>
@@ -352,7 +354,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
           <div className="flex flex-wrap items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
             <div className="flex items-center gap-4 flex-1 min-w-64">
               <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 font-display whitespace-nowrap">
-                Archivio Documenti ({filteredProjects.length})
+                Document Vault ({filteredProjects.length})
               </h2>
 
               <div className="relative flex-1 max-w-md">
@@ -361,7 +363,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Cerca documento per nome..."
+                  placeholder="Search saved document by name..."
                   className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-800 rounded-lg focus:outline-none focus:border-blue-600 dark:focus:border-blue-500"
                 />
               </div>
@@ -372,9 +374,9 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
               <div className="flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
                 {(
                   [
-                    { id: 'all', label: 'Tutti' },
-                    { id: 'modified', label: 'Firmati / Modificati' },
-                    { id: 'unmodified', label: 'Originali' },
+                    { id: 'all', label: 'All' },
+                    { id: 'modified', label: 'Signed / Edited' },
+                    { id: 'unmodified', label: 'Originals' },
                   ] as const
                 ).map((tab) => (
                   <button
@@ -400,7 +402,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                       onClick={() => setConfirmClearAll(true)}
                       className="px-3 py-1.5 text-xs font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                     >
-                      Svuota Archivio
+                      Clear Vault
                     </button>
                   ) : (
                     <div className="flex items-center gap-1.5">
@@ -412,14 +414,14 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                         }}
                         className="px-2.5 py-1.5 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-md cursor-pointer"
                       >
-                        Conferma Elimina Tutti
+                        Confirm Delete All
                       </button>
                       <button
                         type="button"
                         onClick={() => setConfirmClearAll(false)}
                         className="px-2 py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 cursor-pointer"
                       >
-                        Annulla
+                        Cancel
                       </button>
                     </div>
                   )}
@@ -434,13 +436,13 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
               <FolderOpen className="w-8 h-8 text-slate-400 mx-auto" />
               <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                 {projects.length === 0
-                  ? 'Nessun documento PDF presente nella memoria locale'
-                  : 'Nessun documento corrisponde ai filtri selezionati'}
+                  ? 'No PDF documents stored in local memory'
+                  : 'No documents match the selected filters'}
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto">
                 {projects.length === 0
-                  ? 'Trascina un file PDF nel riquadro superiore oppure genera un documento dimostrativo per testare subito firma e modifica del testo.'
-                  : 'Prova a cambiare i termini di ricerca o mostra "Tutti".'}
+                  ? 'Drag and drop a PDF file into the upload box above or generate a sample contract to test signing and text editing.'
+                  : 'Try adjusting your search query or switch the filter back to "All".'}
               </p>
               {projects.length === 0 && (
                 <div className="pt-2 flex items-center justify-center gap-3">
@@ -449,14 +451,14 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                     onClick={() => fileInputRef.current?.click()}
                     className="px-4 py-2 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-600 rounded-lg cursor-pointer"
                   >
-                    Carica Primo PDF
+                    Upload First PDF
                   </button>
                   <button
                     type="button"
                     onClick={onCreateSampleProject}
                     className="px-4 py-2 text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg cursor-pointer"
                   >
-                    Genera PDF Dimostrativo
+                    Generate Sample PDF
                   </button>
                 </div>
               )}
@@ -469,9 +471,9 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                 const txtCount = proj.textAnnotations?.length || 0;
                 const pageCount = proj.pages?.length || 0;
                 const sizeKb = Math.max(1, Math.round((proj.totalSizeBytes || 0) / 1024));
-                const updatedStr = new Date(proj.updatedAt).toLocaleString('it-IT', {
+                const updatedStr = new Date(proj.updatedAt).toLocaleString('en-US', {
+                  month: 'short',
                   day: '2-digit',
-                  month: '2-digit',
                   year: 'numeric',
                   hour: '2-digit',
                   minute: '2-digit',
@@ -499,13 +501,12 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                           className="max-h-full w-auto object-contain bg-white shadow-sm rounded-xs group-hover:scale-[1.03] transition-transform duration-200"
                         />
                       ) : (
-                        <div className="text-xs text-slate-400">Anteprima PDF</div>
+                        <div className="text-xs text-slate-400">PDF Preview</div>
                       )}
 
-                      {/* Subtle Hover Open Action */}
                       <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-colors flex items-end justify-end p-3">
                         <span className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 px-2.5 py-1 rounded-md bg-slate-900/90 text-white text-xs font-medium shadow-sm">
-                          <span>Apri nello Studio</span>
+                          <span>Open in Studio</span>
                           <ArrowUpRight className="w-3.5 h-3.5" />
                         </span>
                       </div>
@@ -544,33 +545,37 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                               setEditingTitleId(proj.id);
                               setEditingTitleValue(proj.name);
                             }}
-                            title="Clicca per rinominare il documento"
+                            title="Click to rename document"
                             className="text-base font-semibold text-slate-900 dark:text-slate-100 truncate cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 font-display"
                           >
                             {proj.name}
                           </h3>
                         )}
 
-                        {/* Clean Unboxed Metadata */}
                         <div className="flex flex-wrap items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-mono tabular-nums">
-                          <span>{pageCount} pag.</span>
+                          <span>
+                            {pageCount} {pageCount === 1 ? 'page' : 'pages'}
+                          </span>
                           <span aria-hidden="true">·</span>
                           <span>{sizeKb} KB</span>
                           <span aria-hidden="true">·</span>
-                          <span>Modificato {updatedStr}</span>
+                          <span>Updated {updatedStr}</span>
                         </div>
 
-                        {/* Activity Status */}
                         <div className="pt-1 text-xs">
                           {sigCount > 0 || txtCount > 0 ? (
                             <div className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 font-medium">
-                              <span>{sigCount} firme applicate</span>
+                              <span>
+                                {sigCount} {sigCount === 1 ? 'signature' : 'signatures'}
+                              </span>
                               <span aria-hidden="true">·</span>
-                              <span>{txtCount} testi modificati</span>
+                              <span>
+                                {txtCount} {txtCount === 1 ? 'text edit' : 'text edits'}
+                              </span>
                             </div>
                           ) : (
                             <span className="text-slate-400 dark:text-slate-500">
-                              Documento integro (nessuna modifica applicata)
+                              Original document (no edits applied yet)
                             </span>
                           )}
                         </div>
@@ -585,17 +590,17 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-600 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                           >
                             <PenTool className="w-3.5 h-3.5" />
-                            <span>Firma</span>
+                            <span>Sign</span>
                           </button>
 
                           <button
                             type="button"
                             onClick={() => onOpenProject(proj, 'text')}
                             className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-                            title="Apri direttamente nello strumento Modifica Testo PDF"
+                            title="Open directly in Edit PDF Text mode"
                           >
                             <Type className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-                            <span>Modifica Testo</span>
+                            <span>Edit Text</span>
                           </button>
                         </div>
 
@@ -604,7 +609,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                             type="button"
                             onClick={() => onExportProjectDirect(proj)}
                             className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/50 rounded-md transition-colors cursor-pointer"
-                            title="Esporta e scarica PDF finale"
+                            title="Export and download final PDF"
                           >
                             <Download className="w-4 h-4" />
                           </button>
@@ -612,7 +617,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                             type="button"
                             onClick={() => onDuplicateProject(proj)}
                             className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-colors cursor-pointer"
-                            title="Duplica documento in memoria"
+                            title="Duplicate document in memory"
                           >
                             <Copy className="w-4 h-4" />
                           </button>
@@ -620,7 +625,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                             type="button"
                             onClick={() => onDeleteProject(proj.id)}
                             className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/50 rounded-md transition-colors cursor-pointer"
-                            title="Elimina definitivamente dalla memoria locale"
+                            title="Delete permanently from local memory"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -639,10 +644,10 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 font-display">
-                La tua Libreria Firme Trasparenti ({signatureAssets.length})
+                Your Transparent Signature Library ({signatureAssets.length})
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Firme scontornate da file <span className="font-mono">.BMP</span> e <span className="font-mono">.PDF</span> pronte per essere incollate su qualsiasi documento.
+                Signatures processed from <span className="font-mono">.BMP</span> and <span className="font-mono">.PDF</span> files, ready to be pasted onto any document.
               </p>
             </div>
 
@@ -653,7 +658,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                 className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
                 <Upload className="w-3.5 h-3.5" />
-                <span>Carica Firma (.BMP / .PDF)</span>
+                <span>Upload Signature (.BMP / .PDF)</span>
               </button>
               <button
                 type="button"
@@ -661,7 +666,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                 className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
                 <PenTool className="w-3.5 h-3.5" />
-                <span>Disegna o Crea Timbro</span>
+                <span>Draw or Create Stamp</span>
               </button>
             </div>
           </div>

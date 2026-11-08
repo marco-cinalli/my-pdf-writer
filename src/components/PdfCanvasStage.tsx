@@ -169,7 +169,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
           setCanvasCssSize({ width: cssWidth, height: cssHeight });
         }
       } catch (err) {
-        console.error('Errore rendering pagina PDF:', err);
+        console.error('Error rendering PDF page:', err);
       } finally {
         if (!cancelled) {
           setIsRendering(false);
@@ -395,19 +395,19 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
               disabled={pageIndex <= 0}
               onClick={() => onNavigatePage(-1)}
               className="p-1 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white disabled:opacity-35 rounded transition-colors cursor-pointer"
-              title="Pagina precedente"
+              title="Previous page"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <span className="px-2.5 text-xs font-mono tabular-nums font-medium text-slate-800 dark:text-slate-100 whitespace-nowrap">
-              Pag. {pageIndex + 1} / {totalPages}
+              Page {pageIndex + 1} / {totalPages}
             </span>
             <button
               type="button"
               disabled={pageIndex >= totalPages - 1}
               onClick={() => onNavigatePage(1)}
               className="p-1 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white disabled:opacity-35 rounded transition-colors cursor-pointer"
-              title="Pagina successiva"
+              title="Next page"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -422,7 +422,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
               type="button"
               onClick={() => onRotateActivePage(-90)}
               className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-              title="Ruota pagina -90°"
+              title="Rotate page -90°"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>-90°</span>
@@ -431,7 +431,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
               type="button"
               onClick={() => onRotateActivePage(90)}
               className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-              title="Ruota pagina +90°"
+              title="Rotate page +90°"
             >
               <RotateCw className="w-3.5 h-3.5" />
               <span>+90°</span>
@@ -452,11 +452,11 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                 ? 'bg-amber-600 text-white border-amber-600 shadow-xs'
                 : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
             }`}
-            title="Attiva il rilevamento del testo esistente nel PDF per modificarlo o aggiungere nuovo testo"
+            title="Enable detection of existing PDF text blocks to edit them or add new text"
           >
             <Type className="w-3.5 h-3.5" />
             <span>
-              {isTextEditMode ? 'Modifica Testo PDF: Attiva' : 'Modifica Testo PDF'}
+              {isTextEditMode ? 'Edit PDF Text: Active' : 'Edit PDF Text'}
             </span>
           </button>
 
@@ -466,7 +466,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
               onClick={() => onCreateFreeTextAt()}
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 hover:bg-amber-100 dark:hover:bg-amber-900/60 border border-amber-200 dark:border-amber-800 rounded-md transition-colors whitespace-nowrap shrink-0 cursor-pointer"
             >
-              <span>+ Nuova Casella Testo</span>
+              <span>+ New Text Box</span>
             </button>
           ) : (
             <>
@@ -477,7 +477,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                   className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800 rounded-md transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   <PenTool className="w-3.5 h-3.5" />
-                  <span>Incolla Firma</span>
+                  <span>Paste Signature</span>
                 </button>
               )}
 
@@ -489,10 +489,10 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                     ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
                 }`}
-                title="Mantieni o sblocca le proporzioni durante il ridimensionamento della firma"
+                title="Lock or unlock aspect ratio while resizing signatures"
               >
                 <Maximize2 className="w-3 h-3" />
-                <span>{lockAspectRatio ? 'Proporzioni Fisse' : 'Proporzioni Libere'}</span>
+                <span>{lockAspectRatio ? 'Aspect Locked' : 'Free Resize'}</span>
               </button>
             </>
           )}
@@ -505,7 +505,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
               type="button"
               onClick={() => setZoom((z) => Math.max(0.5, Number((z - 0.15).toFixed(2))))}
               className="p-1 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded transition-colors cursor-pointer"
-              title="Riduci zoom"
+              title="Zoom out"
             >
               <ZoomOut className="w-4 h-4" />
             </button>
@@ -513,7 +513,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
               type="button"
               onClick={() => setZoom(1.05)}
               className="px-2 text-xs font-mono tabular-nums font-medium text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white cursor-pointer"
-              title="Reimposta zoom al 100%"
+              title="Reset zoom to 100%"
             >
               {Math.round(zoom * 100)}%
             </button>
@@ -521,7 +521,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
               type="button"
               onClick={() => setZoom((z) => Math.min(2.2, Number((z + 0.15).toFixed(2))))}
               className="p-1 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded transition-colors cursor-pointer"
-              title="Aumenta zoom"
+              title="Zoom in"
             >
               <ZoomIn className="w-4 h-4" />
             </button>
@@ -531,7 +531,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
             type="button"
             onClick={() => onToggleTheme(!isDark)}
             className="p-1.5 text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-md transition-colors cursor-pointer"
-            title={isDark ? 'Passa al Tema Chiaro' : 'Passa al Tema Scuro'}
+            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
             {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
@@ -577,13 +577,13 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
           }}
           className="relative bg-white shadow-xl border border-slate-300 dark:border-slate-700 transition-opacity"
         >
-          {/* Underlying PDF Page Canvas (Always true white paper for WYSIWYG accuracy) */}
+          {/* Underlying PDF Page Canvas */}
           <canvas ref={canvasRef} className="block pointer-events-none" />
 
           {isRendering && (
             <div className="absolute inset-0 bg-white/40 flex items-center justify-center pointer-events-none">
               <span className="text-xs font-medium text-slate-600 bg-white px-3 py-1.5 rounded border border-slate-200 shadow-xs">
-                Aggiornamento pagina...
+                Updating page...
               </span>
             </div>
           )}
@@ -605,7 +605,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                     e.stopPropagation();
                     onCreateTextFromDetected(det);
                   }}
-                  title={`Clicca per modificare: "${det.text}"`}
+                  title={`Click to edit: "${det.text}"`}
                   className="absolute z-10 border border-dashed border-amber-400/75 hover:border-amber-600 hover:bg-amber-200/25 rounded-[2px] cursor-text transition-colors"
                 />
               );
@@ -662,7 +662,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                         heightRatio: txt.heightRatio,
                       });
                     }}
-                    title="Trascina per spostare la casella di testo"
+                    title="Drag to move text box"
                     className="w-2.5 self-stretch bg-amber-500/80 hover:bg-amber-600 cursor-move shrink-0"
                   />
                 )}
@@ -727,7 +727,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                           yRatio: txt.yRatio,
                         });
                       }}
-                      title="Trascina per allargare la casella di testo"
+                      title="Drag to resize text box"
                       className="absolute -bottom-1.5 -right-1.5 w-3.5 h-3.5 bg-white border-2 border-amber-600 rounded-xs cursor-nwse-resize"
                     />
 
@@ -743,7 +743,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                           })
                         }
                         className="px-1.5 py-0.5 text-xs hover:bg-slate-800 rounded cursor-pointer"
-                        title="Riduci dimensione testo"
+                        title="Decrease font size"
                       >
                         A-
                       </button>
@@ -758,7 +758,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                           })
                         }
                         className="px-1.5 py-0.5 text-xs hover:bg-slate-800 rounded cursor-pointer"
-                        title="Aumenta dimensione testo"
+                        title="Increase font size"
                       >
                         A+
                       </button>
@@ -775,7 +775,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                             ? 'bg-amber-600 text-white'
                             : 'hover:bg-slate-800 text-slate-300'
                         }`}
-                        title="Grassetto"
+                        title="Bold"
                       >
                         <Bold className="w-3.5 h-3.5" />
                       </button>
@@ -792,10 +792,10 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                             ? 'bg-slate-700 text-white'
                             : 'text-slate-400 hover:bg-slate-800'
                         }`}
-                        title="Copri il testo originale sottostante con sfondo bianco"
+                        title="Cover underlying PDF text with white mask"
                       >
                         <EyeOff className="w-3 h-3" />
-                        <span>Copri fondo</span>
+                        <span>Mask BG</span>
                       </button>
 
                       <span className="text-slate-700">|</span>
@@ -804,7 +804,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                         type="button"
                         onClick={() => onDeleteTextAnnotation(txt.id)}
                         className="p-1 hover:bg-red-900/60 rounded text-red-300 hover:text-red-200 transition-colors cursor-pointer"
-                        title="Annulla modifica testo / Rimuovi casella"
+                        title="Remove text edit"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -906,7 +906,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                       <span className="text-slate-700">|</span>
 
                       <label className="flex items-center gap-1 text-[11px] text-slate-300">
-                        <span>Opacità</span>
+                        <span>Opacity</span>
                         <input
                           type="range"
                           min={30}
@@ -927,7 +927,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                         type="button"
                         onClick={() => onDuplicatePlaced(placed.id)}
                         className="p-1 hover:bg-slate-800 rounded text-slate-200 hover:text-white transition-colors cursor-pointer"
-                        title="Duplica firma sulla pagina"
+                        title="Duplicate signature on page"
                       >
                         <Copy className="w-3.5 h-3.5" />
                       </button>
@@ -937,10 +937,10 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                           type="button"
                           onClick={() => onApplyPlacedToAllPages(placed.id)}
                           className="flex items-center gap-1 px-1.5 py-0.5 hover:bg-slate-800 rounded text-[11px] text-blue-300 hover:text-blue-200 transition-colors cursor-pointer"
-                          title="Copia questa firma nella stessa posizione su tutte le pagine"
+                          title="Copy this signature to the exact same position on all pages"
                         >
                           <Layers className="w-3 h-3" />
-                          <span>Tutte le pag.</span>
+                          <span>All Pages</span>
                         </button>
                       )}
 
@@ -948,7 +948,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
                         type="button"
                         onClick={() => onDeletePlaced(placed.id)}
                         className="p-1 hover:bg-red-900/60 rounded text-red-300 hover:text-red-200 transition-colors cursor-pointer"
-                        title="Rimuovi firma dalla pagina (Canc)"
+                        title="Remove signature from page (Del)"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -966,11 +966,11 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
         <div className="flex items-center gap-2 truncate">
           {isTextEditMode ? (
             <span className="text-amber-700 dark:text-amber-400 font-medium">
-              Modalità Testo Attiva: clicca su qualsiasi frase tratteggiata del PDF per modificarla, oppure fai doppio clic per aggiungere nuovo testo.
+              Text Mode Active: click any dashed text block on the PDF to edit it inline, or double-click to insert a new text box.
             </span>
           ) : (
             <span>
-              Suggerimento: fai doppio clic sul foglio per incollare la firma attiva, oppure attiva "Modifica Testo PDF" per correggere i testi.
+              Tip: double-click anywhere on the page to paste the active signature, or click "Edit PDF Text" to modify existing text.
             </span>
           )}
         </div>
@@ -979,7 +979,7 @@ export const PdfCanvasStage: React.FC<PdfCanvasStageProps> = ({
             {Math.round(activePage.widthPts)} × {Math.round(activePage.heightPts)} pt
           </span>
           <span aria-hidden="true">·</span>
-          <span>Auto-salvataggio Locale Attivo</span>
+          <span>Local Auto-Save Active</span>
         </div>
       </div>
     </section>

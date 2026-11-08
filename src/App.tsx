@@ -51,7 +51,7 @@ export default function App() {
       const saved = localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
       if (saved === 'dark') return true;
       if (saved === 'light') return false;
-      return true; // Default to architectural Slate Dark Mode as requested
+      return true; // Default to architectural Slate Dark Mode
     } catch {
       return true;
     }
@@ -60,7 +60,7 @@ export default function App() {
   const [viewMode, setViewMode] = useState<AppViewMode>('home');
   const [savedProjects, setSavedProjects] = useState<SavedPdfProject[]>([]);
   const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
-  const [activeProjectName, setActiveProjectName] = useState<string>('Documento PDF');
+  const [activeProjectName, setActiveProjectName] = useState<string>('PDF Document');
   const [activeProjectCreatedAt, setActiveProjectCreatedAt] = useState<number>(Date.now());
 
   const [sources, setSources] = useState<Map<string, PdfSourceFile>>(new Map());
@@ -146,7 +146,7 @@ export default function App() {
       const sampleBytes = await generateSampleContractPdf();
       const sampleBuffer = new Uint8Array(sampleBytes).buffer;
       const sourceId = `src_demo_${Date.now()}`;
-      const fileName = 'Modulo_Autorizzazione_Personale.pdf';
+      const fileName = 'Personal_Authorization_Agreement.pdf';
       const loadedPages = await loadPdfDocumentPages(sourceId, fileName, sampleBuffer);
 
       const srcEntry: PdfSourceFile = {
@@ -214,7 +214,7 @@ export default function App() {
         }
 
         if (loadedAssets.length === 0) {
-          const rawSampleSig = createSampleSignatureDataUrl('Marco Valeri');
+          const rawSampleSig = createSampleSignatureDataUrl('Alex Morgan');
           const processed = await processSignatureTransparency(rawSampleSig, {
             transparentWhite: true,
             threshold: 35,
@@ -225,7 +225,7 @@ export default function App() {
           loadedAssets = [
             {
               id: 'sig_sample_default',
-              name: 'Firma Marco Valeri.bmp',
+              name: 'Signature_Alex_Morgan.bmp',
               sourceFormat: 'BMP',
               rawDataUrl: rawSampleSig,
               processedDataUrl: processed.processedDataUrl,
@@ -271,7 +271,7 @@ export default function App() {
           }
         }
       } catch (err) {
-        console.error('Errore avvio applicazione:', err);
+        console.error('Application bootstrap error:', err);
       }
     }
 
@@ -356,7 +356,7 @@ export default function App() {
       (f) => f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf')
     );
     if (files.length === 0) {
-      showToast('Seleziona almeno un file PDF valido.', 'error');
+      showToast('Please select at least one valid PDF file.', 'error');
       return;
     }
 
@@ -402,18 +402,18 @@ export default function App() {
       if (openImmediately && lastCreated) {
         activateProjectInEditor(lastCreated, 'sign');
         showToast(
-          `Documento "${lastCreated.name}" salvato in memoria locale e aperto nell'editor.`
+          `Document "${lastCreated.name}" saved to local vault and opened in editor.`
         );
       } else {
         showToast(
           `${createdList.length} ${
-            createdList.length === 1 ? 'documento salvato' : 'documenti salvati'
-          } nella memoria locale.`
+            createdList.length === 1 ? 'document saved' : 'documents saved'
+          } to local vault.`
         );
       }
     } catch (err) {
       console.error(err);
-      showToast('Impossibile leggere il file PDF selezionato.', 'error');
+      showToast('Unable to read the selected PDF file.', 'error');
     }
   };
 
@@ -425,7 +425,7 @@ export default function App() {
       (f) => f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf')
     );
     if (files.length === 0) {
-      showToast('Seleziona almeno un file PDF valido da unire.', 'error');
+      showToast('Please select at least one valid PDF file to merge.', 'error');
       return;
     }
 
@@ -456,10 +456,10 @@ export default function App() {
         setActivePageId(newPages[0].id);
       }
       setExtractRangeInput(`1-${newPages.length}`);
-      showToast(`Aggiunti ${files.length} PDF (${newPages.length} pagine totali).`);
+      showToast(`Merged ${files.length} PDF(s) (${newPages.length} total pages).`);
     } catch (err) {
       console.error(err);
-      showToast("Errore durante l'unione dei file PDF.", 'error');
+      showToast('Error while merging PDF files.', 'error');
     }
   };
 
@@ -498,11 +498,11 @@ export default function App() {
         setSignatureAssets((prev) => [newAsset, ...prev]);
         setActiveSignatureAssetId(newAsset.id);
         showToast(
-          `Firma "${file.name}" (${sourceFormat}) importata con sfondo bianco reso trasparente.`
+          `Signature "${file.name}" (${sourceFormat}) imported with transparent background.`
         );
       } catch (err) {
         console.error(err);
-        showToast(`Errore nel caricamento della firma "${file.name}".`, 'error');
+        showToast(`Failed to load signature file "${file.name}".`, 'error');
       }
     }
   };
@@ -545,7 +545,7 @@ export default function App() {
         )
       );
     } catch (err) {
-      console.error('Errore elaborazione trasparenza firma:', err);
+      console.error('Error updating signature transparency:', err);
     }
   };
 
@@ -591,7 +591,7 @@ export default function App() {
     setPlacedSignatures((prev) => [...prev, newPlaced]);
     setSelectedPlacedId(newPlaced.id);
     setSelectedTextId(null);
-    showToast('Firma inserita nella pagina.');
+    showToast('Signature placed on page.');
   };
 
   /**
@@ -644,7 +644,7 @@ export default function App() {
       id: `txt_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
       pageId: activePageId,
       mode: 'add',
-      text: 'Nuovo testo...',
+      text: 'New text...',
       xRatio,
       yRatio,
       widthRatio,
@@ -695,7 +695,7 @@ export default function App() {
         )
       );
     } catch (err) {
-      console.error('Errore rotazione pagina:', err);
+      console.error('Error rotating page:', err);
     }
   };
 
@@ -726,7 +726,7 @@ export default function App() {
       });
     }
     setPages(updated);
-    showToast('Tutte le pagine sono state ruotate di 90°.');
+    showToast('All pages rotated by 90°.');
   };
 
   /**
@@ -763,7 +763,7 @@ export default function App() {
   /**
    * Exports either the complete signed/edited PDF or an extracted page range subset
    */
-  const handleExportPdf = async (subsetIndices?: number[], customSuffix = 'Firmato') => {
+  const handleExportPdf = async (subsetIndices?: number[], customSuffix = 'Signed') => {
     if (pages.length === 0) return;
     setIsExporting(true);
     try {
@@ -778,7 +778,7 @@ export default function App() {
 
       const blob = new Blob([new Uint8Array(pdfBytes)], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
-      const baseName = activeProjectName.replace(/\.pdf$/i, '') || 'Documento';
+      const baseName = activeProjectName.replace(/\.pdf$/i, '') || 'Document';
 
       const a = document.createElement('a');
       a.href = url;
@@ -788,10 +788,10 @@ export default function App() {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
-      showToast(`File "${baseName}_${customSuffix}.pdf" esportato con successo!`);
+      showToast(`File "${baseName}_${customSuffix}.pdf" exported successfully!`);
     } catch (err) {
-      console.error('Errore esportazione PDF:', err);
-      showToast('Errore durante la generazione del file PDF finale.', 'error');
+      console.error('Error exporting PDF:', err);
+      showToast('Failed to generate final PDF file.', 'error');
     } finally {
       setIsExporting(false);
     }
@@ -816,20 +816,20 @@ export default function App() {
 
       const blob = new Blob([new Uint8Array(pdfBytes)], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
-      const baseName = proj.name.replace(/\.pdf$/i, '') || 'Documento';
+      const baseName = proj.name.replace(/\.pdf$/i, '') || 'Document';
 
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${baseName}_Esportato.pdf`;
+      a.download = `${baseName}_Exported.pdf`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
-      showToast(`Documento "${baseName}_Esportato.pdf" scaricato!`);
+      showToast(`Document "${baseName}_Exported.pdf" downloaded!`);
     } catch (err) {
       console.error(err);
-      showToast("Errore durante l'esportazione del documento.", 'error');
+      showToast('Error while exporting document.', 'error');
     } finally {
       setIsExporting(false);
     }
@@ -845,7 +845,7 @@ export default function App() {
       : [...selectedExtractIndices, idx].sort((a, b) => a - b);
     setSelectedExtractIndices(next);
     setExtractRangeInput(next.map((i) => i + 1).join(', '));
-    setExtractRangeError(next.length === 0 ? 'Seleziona almeno una pagina.' : null);
+    setExtractRangeError(next.length === 0 ? 'Select at least one page.' : null);
   };
 
   /**
@@ -932,7 +932,7 @@ export default function App() {
         {/* Zone 2: 5 Concise Single-line Navigation Links */}
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-400">
           <a
-            href="#archivio"
+            href="#vault"
             onClick={(e) => {
               e.preventDefault();
               setViewMode('home');
@@ -943,10 +943,10 @@ export default function App() {
                 : ''
             }`}
           >
-            Archivio PDF ({savedProjects.length})
+            PDF Vault ({savedProjects.length})
           </a>
           <a
-            href="#firma"
+            href="#sign"
             onClick={(e) => {
               e.preventDefault();
               setViewMode('editor');
@@ -958,10 +958,10 @@ export default function App() {
                 : ''
             }`}
           >
-            Firma PDF
+            Sign PDF
           </a>
           <a
-            href="#testo"
+            href="#text"
             onClick={(e) => {
               e.preventDefault();
               setViewMode('editor');
@@ -973,10 +973,10 @@ export default function App() {
                 : ''
             }`}
           >
-            Modifica Testo
+            Edit Text
           </a>
           <a
-            href="#unisci"
+            href="#merge"
             onClick={(e) => {
               e.preventDefault();
               setViewMode('editor');
@@ -988,10 +988,10 @@ export default function App() {
                 : ''
             }`}
           >
-            Unisci PDF
+            Merge PDF
           </a>
           <a
-            href="#estrai"
+            href="#extract"
             onClick={(e) => {
               e.preventDefault();
               setViewMode('editor');
@@ -1003,7 +1003,7 @@ export default function App() {
                 : ''
             }`}
           >
-            Estrai Pagine
+            Extract Pages
           </a>
         </nav>
 
@@ -1016,17 +1016,17 @@ export default function App() {
               className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-600 rounded-lg shadow-xs transition-colors whitespace-nowrap shrink-0 cursor-pointer"
             >
               <FileUp className="w-3.5 h-3.5" />
-              <span>Carica PDF in Memoria</span>
+              <span>Upload PDF to Vault</span>
             </button>
           ) : (
             <button
               type="button"
               disabled={isExporting || pages.length === 0}
-              onClick={() => handleExportPdf(undefined, 'Firmato')}
+              onClick={() => handleExportPdf(undefined, 'Signed')}
               className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-600 disabled:opacity-50 rounded-lg shadow-xs transition-colors whitespace-nowrap shrink-0 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>{isExporting ? 'Esportazione...' : 'Esporta PDF Finale'}</span>
+              <span>{isExporting ? 'Exporting...' : 'Export Final PDF'}</span>
             </button>
           )}
         </div>
@@ -1067,7 +1067,7 @@ export default function App() {
               const copy: SavedPdfProject = {
                 ...proj,
                 id: `proj_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
-                name: `${proj.name.replace(/\.pdf$/i, '')} (Copia).pdf`,
+                name: `${proj.name.replace(/\.pdf$/i, '')} (Copy).pdf`,
                 createdAt: Date.now(),
                 updatedAt: Date.now(),
                 sources: proj.sources.map((s) => ({ ...s, data: s.data.slice(0) })),
@@ -1075,7 +1075,7 @@ export default function App() {
               await saveProjectToVault(copy);
               const all = await getAllSavedProjects();
               setSavedProjects(all);
-              showToast(`Documento "${copy.name}" duplicato in memoria.`);
+              showToast(`Document "${copy.name}" duplicated in vault.`);
             }}
             onDeleteProject={async (projectId) => {
               await deleteProjectFromVault(projectId);
@@ -1091,7 +1091,7 @@ export default function App() {
                   setSources(new Map());
                 }
               }
-              showToast('Documento eliminato dalla memoria locale.');
+              showToast('Document removed from local vault.');
             }}
             onRenameProject={async (projectId, newName) => {
               const target = savedProjects.find((p) => p.id === projectId);
@@ -1114,13 +1114,13 @@ export default function App() {
               setActiveProjectId(null);
               setPages([]);
               setSources(new Map());
-              showToast('Archivio locale svuotato.');
+              showToast('Local vault cleared.');
             }}
             onCreateSampleProject={async () => {
               const demo = await createAndStoreSampleProject();
               const all = await getAllSavedProjects();
               setSavedProjects(all);
-              showToast(`Generato "${demo.name}" nella memoria locale.`);
+              showToast(`Generated "${demo.name}" in local vault.`);
             }}
           />
         ) : (
@@ -1193,7 +1193,7 @@ export default function App() {
                 }
                 setPlacedSignatures((prev) => [...prev, ...additions]);
                 showToast(
-                  `Firma copiata nella stessa posizione su tutte le ${pages.length} pagine.`
+                  `Signature copied to the same position across all ${pages.length} pages.`
                 );
               }}
               onPlaceActiveSignatureAt={(xRatio, yRatio) => {
@@ -1262,10 +1262,10 @@ export default function App() {
                 const url = URL.createObjectURL(bmpBlob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'Firma_Esempio_Bianco.bmp';
+                a.download = 'Sample_Signature_WhiteBg.bmp';
                 a.click();
                 URL.revokeObjectURL(url);
-                showToast('Scaricato "Firma_Esempio_Bianco.bmp". Trascinalo nel riquadro firma!');
+                showToast('Downloaded "Sample_Signature_WhiteBg.bmp". Drop it into the signature box!');
               }}
               onDownloadSamplePdfSig={async () => {
                 const rawUrl = createSampleSignatureDataUrl('Elena Rossini');
@@ -1273,11 +1273,11 @@ export default function App() {
                 const url = URL.createObjectURL(pdfBlob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'Firma_Vettoriale_Esempio.pdf';
+                a.download = 'Sample_Vector_Signature.pdf';
                 a.click();
                 URL.revokeObjectURL(url);
                 showToast(
-                  'Scaricato "Firma_Vettoriale_Esempio.pdf". Trascinalo nel riquadro firma!'
+                  'Downloaded "Sample_Vector_Signature.pdf". Drop it into the signature box!'
                 );
               }}
               activePageId={activePageId}
@@ -1305,7 +1305,7 @@ export default function App() {
               onExportExtractedPages={() =>
                 handleExportPdf(
                   selectedExtractIndices,
-                  `Estratto_${extractRangeInput.replace(/\s+/g, '')}`
+                  `Extracted_${extractRangeInput.replace(/\s+/g, '')}`
                 )
               }
               isExporting={isExporting}
@@ -1319,10 +1319,10 @@ export default function App() {
             <div className="bg-white dark:bg-slate-900 border-2 border-dashed border-blue-600 dark:border-blue-500 rounded-2xl px-10 py-8 shadow-xl text-center max-w-md">
               <FileUp className="w-10 h-10 text-blue-600 dark:text-blue-400 mx-auto mb-3" />
               <p className="text-base font-bold text-slate-900 dark:text-slate-100">
-                Rilascia i file per salvarli in memoria locale
+                Drop files to save them to your local vault
               </p>
               <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                Rilascia un documento <span className="font-mono font-semibold">.PDF</span> per archiviarlo, oppure una firma <span className="font-mono font-semibold">.BMP / .PDF</span> per rimuovere lo sfondo bianco.
+                Drop a <span className="font-mono font-semibold">.PDF</span> document to store it, or a <span className="font-mono font-semibold">.BMP / .PDF</span> signature to automatically remove its white background.
               </p>
             </div>
           </div>
@@ -1371,7 +1371,7 @@ export default function App() {
           if (viewMode === 'editor') {
             handlePlaceSignatureOnPage(newAsset.id);
           } else {
-            showToast(`Firma "${name}" salvata nella tua libreria firme.`);
+            showToast(`Signature "${name}" saved to your signature library.`);
           }
         }}
       />
