@@ -17,6 +17,7 @@ import {
   Upload,
 } from 'lucide-react';
 import { SavedPdfProject, SignatureAsset, WorkspaceTab } from '../types/pdf';
+import { PWAInstallButton } from './PWAInstallButton';
 
 interface HomeVaultViewProps {
   projects: SavedPdfProject[];
@@ -162,7 +163,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
 
             {/* Bottom Hero Action Row */}
             <div className="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-2.5">
+              <div className="flex flex-wrap items-center gap-2.5">
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
@@ -178,6 +179,7 @@ export const HomeVaultView: React.FC<HomeVaultViewProps> = ({
                 >
                   + Generate Sample Contract
                 </button>
+                <PWAInstallButton />
               </div>
 
               <div className="text-xs font-mono tabular-nums text-slate-500 dark:text-slate-400">

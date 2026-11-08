@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="55%" stop-color="#1E3A8A" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="pageGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F1F5F9" />
+    </linearGradient>
+  </defs>
+  <!-- Background Squircle -->
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bgGrad)" />
+  <!-- Document Sheet -->
+  <path d="M144 96 H312 L384 168 V400 C384 413.255 373.255 424 360 424 H144 C130.745 424 120 413.255 120 400 V120 C120 106.745 130.745 96 144 96 Z" fill="url(#pageGrad)" />
+  <!-- Folded Corner -->
+  <path d="M312 96 V152 C312 160.837 319.163 168 328 168 H384 L312 96 Z" fill="#CBD5E1" />
+  <!-- Document Lines -->
+  <rect x="160" y="164" width="116" height="14" rx="7" fill="#94A3B8" />
+  <rect x="160" y="198" width="184" height="12" rx="6" fill="#CBD5E1" />
+  <rect x="160" y="226" width="156" height="12" rx="6" fill="#CBD5E1" />
+  <!-- Signature Stroke in Royal Blue -->
+  <path d="M156 346 C178 302, 202 298, 212 342 C220 374, 244 316, 266 326 C284 334, 294 352, 332 322" fill="none" stroke="#1D4ED8" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Fountain Pen Nib Accent -->
+  <circle cx="348" cy="312" r="12" fill="#2563EB" />
+</svg>
